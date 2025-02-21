@@ -129,7 +129,16 @@
                     console.log('Start button clicked');
                     const username = tg?.initDataUnsafe?.user?.username || 'test_user';
                     
-                    const response = await fetch(`http://localhost:10000/random-puzzle/${username}`);
+                    // Используем HTTPS URL вашего сервера
+                    const response = await fetch(`https://your-server-domain.com/random-puzzle/${username}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Разрешаем CORS
+                            'Access-Control-Allow-Origin': '*'
+                        }
+                    });
+
                     if (!response.ok) {
                         throw new Error('Ошибка получения задачи');
                     }
@@ -137,8 +146,9 @@
                     const puzzle = await response.json();
                     console.log('Получена задача:', puzzle);
                     
-                    // Здесь код для перехода к задаче
-                    alert('Задача получена!');
+                    // Показываем страницу с задачей
+                    document.querySelector('.start-container').classList.add('hidden');
+                    document.getElementById('puzzlePage').classList.remove('hidden');
                     
                 } catch (error) {
                     console.error('Ошибка:', error);
