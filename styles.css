@@ -1,0 +1,299 @@
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--tg-theme-bg-color, #fff);
+    color: var(--tg-theme-text-color, #000);
+}
+
+.page {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.back-arrow {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.timer {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.rating-container {
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+#board {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: var(--tg-theme-button-color, #2481cc);
+    color: var(--tg-theme-button-text-color, #fff);
+}
+
+.good-btn {
+    background-color: var(--tg-theme-button-color, #4CAF50);
+}
+
+.blunder-btn {
+    background-color: var(--tg-theme-button-color, #f44336);
+}
+
+.result-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--tg-theme-bg-color, #fff);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.arrow {
+    pointer-events: none;
+}
+
+/* Стартовая страница */
+#startPage {
+    width: 300px;
+    height: 450px;
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.rating {
+    font-size: 24px;
+    color: #000;
+    margin-left: 10px;
+}
+
+.start-btn {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #8DC681;
+    border: 1px solid #000;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Страница с задачей */
+#puzzlePage {
+    width: 350px;
+    height: 450px;
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+}
+
+/* Убираем все границы */
+.board-b72b1, .square-55d63 {
+    border: none !important;
+}
+
+/* Убираем координаты */
+.notation-322f9 {
+    display: none !important;
+}
+
+/* Цвета клеток */
+.white-1e1d7 {
+    background-color: #f0d9b5;
+}
+.black-3c85d {
+    background-color: #b58863;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    height: 35px;
+}
+
+/* Текст кнопок */
+.blunder-btn::after {
+    content: "Blunder";
+    position: absolute;
+    left: 20%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.good-btn::after {
+    content: "Good";
+    position: absolute;
+    right: 20%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Страница результата */
+#resultPage {
+    width: 350px;
+    height: 450px;
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.result-rating {
+    font-size: 24px;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.result-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+.analyze-btn, .next-btn {
+    width: 120px;
+    height: 35px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    padding: 0;
+    border-radius: 0;
+    transition: none;
+}
+
+.analyze-btn {
+    background-color: #FFB4B4 !important;
+    clip-path: polygon(0 0, 100% 0, 75% 100%, 0 100%) !important;
+}
+
+.next-btn {
+    background-color: #B7E1B7 !important;
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%) !important;
+}
+
+.analyze-btn:hover, .next-btn:hover {
+    transform: none !important;
+    background-color: #FFB4B4 !important;
+}
+
+.next-btn:hover {
+    background-color: #B7E1B7 !important;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #1C1C1C;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    color: white;
+}
+
+.modal-content h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    color: #888;
+    font-size: 14px;
+}
+
+.ok-btn {
+    float: right;
+    padding: 8px 20px;
+    background: #404040;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Стили для кнопок можно адаптировать под тему Telegram */
+.button {
+    background-color: var(--tg-theme-button-color);
+    color: var(--tg-theme-button-text-color);
+} 
