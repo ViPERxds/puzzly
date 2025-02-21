@@ -7,10 +7,6 @@
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -24,35 +20,30 @@
         }
 
         #startPage {
-            width: 300px;
-            height: 450px;
-            border: 1px solid #000;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            padding: 20px;
-            box-sizing: border-box;
-            position: relative;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
         }
 
         .rating {
-            font-size: 24px;
-            color: #000000;
-            margin-left: 10px;
+            font-size: 48px;
+            color: #4CAF50;
+            margin-bottom: 32px;
         }
 
         .start-btn {
-            width: 120px;
-            height: 120px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            background-color: #8DC681;
-            border: 1px solid #000;
-            font-size: 16px;
+            background-color: #90EE90;
+            border: none;
+            font-size: 28px;
+            font-weight: bold;
+            color: black;
             cursor: pointer;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
         }
 
         #puzzlePage {
@@ -62,27 +53,21 @@
             flex-direction: column;
             align-items: center;
             background: white;
-            border: 1px solid black !important;
-            overflow: hidden !important;
         }
 
         #board {
-            width: 300px !important;
-            height: 300px !important;
+            width: 400px !important;
+            height: 400px !important;
             position: relative;
             overflow: hidden !important;
-            border: none !important;
-            outline: none !important;
         }
 
         .timer {
-            text-align: center;  /* Центрируем текст */
-            padding: 5px;
-            font-size: 16px;
-            background: white;
-            border-bottom: 1px solid black;
+            text-align: right;
+            padding: 8px 16px;
+            font-size: 20px;
+            height: 40px;
             width: 100%;
-            box-sizing: border-box;
         }
 
         .button-container {
@@ -159,199 +144,36 @@
         .square-55d63 {
             position: relative;
             z-index: 1;
-            border: none !important;
-            outline: none !important;
-        }
-
-        /* Убираем все границы и координаты с доски */
-        .board-b72b1 {
-            border: none !important;
-            outline: none !important;
-        }
-        
-        .notation-322f9 {
-            display: none !important;
-        }
-
-        /* Убираем все возможные линии */
-        .white-1e1d7 {
-            background-color: #f0d9b5 !important;
-            border: none !important;
-        }
-
-        .black-3c85d {
-            background-color: #b58863 !important;
-            border: none !important;
         }
     </style>
 </head>
 <body>
-    <div id="startPage" class="page">
-        <h1>Chess Puzzles</h1>
-        <div class="rating-container">
-            Rating: <span class="rating">1500</span>
-        </div>
-        <button class="start-btn">Start</button>
+    <div id="startPage">
+        <div class="rating">1564</div>
+        <button class="start-btn" id="startButton">START</button>
     </div>
 
-    <div id="puzzlePage" class="page hidden">
-        <div class="header">
-            <img src="left-arrow-free-arrow-icons-arrow-icon-is-set-isolated-black-background-vectors-eps_1120995-33.svg" 
-                 class="back-arrow" onclick="window.location.reload()">
-            <div class="timer">3:00</div>
-            <div class="rating-container">
-                Rating: <span class="rating">1500</span>
-            </div>
-        </div>
+    <div id="puzzlePage" class="hidden">
+        <div class="timer">2:53</div>
         <div id="board"></div>
-        <div class="buttons">
-            <button class="good-btn">Good</button>
+        <div class="button-container">
             <button class="blunder-btn">Blunder</button>
+            <button class="good-btn">Good</button>
         </div>
     </div>
 
-    <div id="resultPage" class="page hidden">
-        <h2>Result</h2>
-        <div class="result-text"></div>
-        <div class="rating-container">
-            Rating: <span class="rating">1500</span>
-        </div>
-        <button class="next-btn" onclick="window.location.reload()">Next Puzzle</button>
-    </div>
-
-    <div id="errorModal" class="modal hidden">
-        <div class="modal-content">
-            <p>Error loading puzzle. Please try again.</p>
-            <button class="ok-btn">OK</button>
+    <div id="resultPage" class="hidden">
+        <div class="rating">1564</div>
+        <div class="result" id="resultText">Wrong!</div>
+        <div class="buttons">
+            <button class="analyze-btn">Analyze</button>
+            <button class="next-btn">Next</button>
         </div>
     </div>
 
-    <script>
-        const API_URL = 'http://v138365.ispfr.net:8000/api';
-        const tg = window.Telegram.WebApp;
-        let currentUsername;
-        let currentPuzzle;
-        let board;
-        let game;
-        let seconds = 180;
-        let timer;
-
-        // Обновление рейтинга
-        async function updateRating() {
-            try {
-                const response = await fetch(`${API_URL}/user-rating/${currentUsername}`);
-                if (!response.ok) throw new Error('Failed to fetch rating');
-                const data = await response.json();
-                const rating = Math.round(data.rating);
-                document.querySelectorAll('.rating').forEach(el => {
-                    el.textContent = rating;
-                });
-            } catch (err) {
-                console.error('Error updating rating:', err);
-            }
-        }
-
-        // Показ результата
-        async function showResult(success) {
-            clearInterval(timer);
-            const timeSpent = Math.max(0, 180 - seconds);
-            
-            try {
-                const response = await fetch(`${API_URL}/record-solution`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: currentUsername,
-                        puzzleId: currentPuzzle.id,
-                        success: success,
-                        time: timeSpent
-                    })
-                });
-
-                if (!response.ok) throw new Error('Failed to record solution');
-
-                document.getElementById('puzzlePage').classList.add('hidden');
-                document.getElementById('resultPage').classList.remove('hidden');
-                
-                const resultText = document.querySelector('.result-text');
-                resultText.textContent = success ? 'Correct!' : 'Wrong!';
-                resultText.style.color = success ? '#4CAF50' : '#f44336';
-                
-                await updateRating();
-            } catch (err) {
-                console.error('Error recording solution:', err);
-                document.getElementById('errorModal').classList.remove('hidden');
-            }
-        }
-
-        // Запуск таймера
-        function startTimer() {
-            seconds = 180;
-            updateTimer();
-            timer = setInterval(() => {
-                seconds--;
-                updateTimer();
-                if (seconds <= 0) {
-                    clearInterval(timer);
-                    showResult(false);
-                }
-            }, 1000);
-        }
-
-        // Обновление таймера
-        function updateTimer() {
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            document.querySelector('.timer').textContent = 
-                `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-        }
-
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', async function() {
-            tg.ready();
-            tg.expand();
-            
-            currentUsername = tg.initDataUnsafe?.user?.username || 'test_user';
-            await updateRating();
-
-            // Обработчик кнопки Start
-            document.querySelector('.start-btn').addEventListener('click', async function() {
-                try {
-                    const response = await fetch(`${API_URL}/random-puzzle/${currentUsername}`);
-                    if (!response.ok) throw new Error('Failed to fetch puzzle');
-                    currentPuzzle = await response.json();
-                    
-                    document.getElementById('startPage').classList.add('hidden');
-                    document.getElementById('puzzlePage').classList.remove('hidden');
-                    
-                    game = new Chess(currentPuzzle.fen);
-                    board = Chessboard('board', {
-                        position: currentPuzzle.fen,
-                        orientation: currentPuzzle.color === 'W' ? 'white' : 'black'
-                    });
-                    
-                    startTimer();
-                } catch (err) {
-                    console.error('Error starting puzzle:', err);
-                    document.getElementById('errorModal').classList.remove('hidden');
-                }
-            });
-
-            // Обработчики кнопок Good и Blunder
-            document.querySelector('.good-btn').addEventListener('click', () => {
-                showResult(currentPuzzle.solution === 'Good');
-            });
-
-            document.querySelector('.blunder-btn').addEventListener('click', () => {
-                showResult(currentPuzzle.solution === 'Blunder');
-            });
-
-            // Обработчик кнопки OK в модальном окне
-            document.querySelector('.ok-btn').addEventListener('click', () => {
-                document.getElementById('errorModal').classList.add('hidden');
-                window.location.reload();
-            });
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html> 
