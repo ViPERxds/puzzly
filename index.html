@@ -19,40 +19,121 @@
             align-items: center;
         }
 
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
         #startPage {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
+            text-align: center;
+            padding: 40px 0;
         }
 
         .rating {
             font-size: 48px;
+            font-weight: bold;
             color: #4CAF50;
-            margin-bottom: 32px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .start-btn {
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            background-color: #90EE90;
+            background: linear-gradient(145deg, #98f598, #82d682);
             border: none;
             font-size: 28px;
             font-weight: bold;
-            color: black;
+            color: white;
             cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
         }
 
         #puzzlePage {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .good-btn, .blunder-btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .good-btn {
+            background: linear-gradient(145deg, #98f598, #82d682);
+            color: white;
+        }
+
+        .blunder-btn {
+            background: linear-gradient(145deg, #ff9999, #ff7777);
+            color: white;
+        }
+
+        .good-btn:hover, .blunder-btn:hover {
+            transform: scale(1.02);
+        }
+
+        #resultPage {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .result {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .analyze-btn, .next-btn {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            background: linear-gradient(145deg, #87ceeb, #5f9ea0);
+            color: white;
+            transition: transform 0.2s;
+        }
+
+        .analyze-btn:hover, .next-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         #board {
@@ -62,76 +143,11 @@
             overflow: hidden !important;
         }
 
-        .timer {
-            text-align: right;
-            padding: 8px 16px;
-            font-size: 20px;
-            height: 40px;
-            width: 100%;
-        }
-
-        .button-container {
-            width: 100%;
-            display: flex;
-            margin-top: 20px;
-        }
-
-        .good-btn, .blunder-btn {
-            flex: 1;
-            border: none;
-            font-size: 20px;
-            font-weight: bold;
-            height: 100%;
-        }
-
-        .good-btn {
-            background-color: #90EE90;
-        }
-
-        .blunder-btn {
-            background-color: #FFB6C1;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .arrow {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            pointer-events: none !important;
-            z-index: 9999 !important;
-        }
-
         /* СТИЛИ ДЛЯ СТРЕЛКИ */
         .arrow path {
             fill: #00ff00 !important;
             opacity: 0.5 !important;
             stroke: none !important;
-        }
-
-        .analyze-btn, .next-btn {
-            background-color: #87CEEB;
-            color: #00008B;
-            padding: 12px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        .analyze-btn:hover, .next-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .result {
-            font-size: 32px;
-            font-weight: bold;
-            margin: 20px 0;
         }
 
         /* Стили для фигур */
