@@ -20,132 +20,44 @@
         }
 
         .container {
-            max-width: 800px;
             width: 100%;
-            margin: 0 auto;
+            max-width: 400px;
+            text-align: center;
             padding: 20px;
-            background-color: var(--tg-theme-bg-color, #f5f5f5);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         #startPage {
-            text-align: center;
-            padding: 40px 0;
-            min-height: 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 30px;
         }
 
         .rating {
             font-size: 48px;
             font-weight: bold;
             color: #4CAF50;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            position: relative;
         }
 
         .start-btn {
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            background: linear-gradient(145deg, #98f598, #82d682);
+            background-color: #90EE90;
             border: none;
             font-size: 28px;
             font-weight: bold;
-            color: white;
+            color: black;
             cursor: pointer;
-            transform-origin: center;
-            transition: all 0.2s ease;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
         }
 
         .start-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            background: linear-gradient(145deg, #a5f7a5, #90e890);
         }
 
-        #puzzlePage {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-
-        .timer {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .good-btn, .blunder-btn {
-            flex: 1;
-            padding: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .good-btn {
-            background: linear-gradient(145deg, #98f598, #82d682);
-            color: white;
-        }
-
-        .blunder-btn {
-            background: linear-gradient(145deg, #ff9999, #ff7777);
-            color: white;
-        }
-
-        .good-btn:hover, .blunder-btn:hover {
-            transform: scale(1.02);
-        }
-
-        #resultPage {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .result {
-            font-size: 36px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        .analyze-btn, .next-btn {
-            padding: 12px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
-            background: linear-gradient(145deg, #87ceeb, #5f9ea0);
-            color: white;
-            transition: transform 0.2s;
-        }
-
-        .analyze-btn:hover, .next-btn:hover {
-            transform: scale(1.05);
+        #puzzlePage, #resultPage {
+            display: none;
         }
 
         .hidden {
@@ -180,33 +92,35 @@
     </style>
 </head>
 <body>
-    <div id="startPage">
-        <div class="rating">1564</div>
-        <button class="start-btn" id="startButton">START</button>
-    </div>
+    <div class="container">
+        <div id="startPage">
+            <div class="rating">1564</div>
+            <button class="start-btn" id="startButton">START</button>
+        </div>
 
-    <div id="puzzlePage" class="hidden">
-        <div class="timer">2:53</div>
-        <div id="board"></div>
-        <div class="button-container">
-            <button class="blunder-btn">Blunder</button>
-            <button class="good-btn">Good</button>
+        <div id="puzzlePage" class="hidden">
+            <div class="timer">2:53</div>
+            <div id="board"></div>
+            <div class="button-container">
+                <button class="blunder-btn">Blunder</button>
+                <button class="good-btn">Good</button>
+            </div>
+        </div>
+
+        <div id="resultPage" class="hidden">
+            <div class="rating">1564</div>
+            <div class="result" id="resultText">Wrong!</div>
+            <div class="buttons">
+                <button class="analyze-btn">Analyze</button>
+                <button class="next-btn">Next</button>
+            </div>
         </div>
     </div>
 
-    <div id="resultPage" class="hidden">
-        <div class="rating">1564</div>
-        <div class="result" id="resultText">Wrong!</div>
-        <div class="buttons">
-            <button class="analyze-btn">Analyze</button>
-            <button class="next-btn">Next</button>
-        </div>
-    </div>
-
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
     <script src="script.js"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html> 
