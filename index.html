@@ -11,32 +11,25 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: white;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            padding: 20px;
+            background-color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         }
 
         #startPage {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
         }
 
         .rating {
             font-size: 48px;
-            font-weight: bold;
             color: #4CAF50;
+            margin-bottom: 40px;
         }
 
         .start-btn {
@@ -46,14 +39,15 @@
             background-color: #90EE90;
             border: none;
             font-size: 28px;
-            font-weight: bold;
             color: black;
             cursor: pointer;
-            transition: transform 0.2s;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .start-btn:hover {
-            transform: scale(1.05);
+            background-color: #7FDD7F;
         }
 
         #puzzlePage, #resultPage {
@@ -61,7 +55,7 @@
         }
 
         .hidden {
-            display: none !important;
+            display: none;
         }
 
         #board {
@@ -92,28 +86,26 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="startPage">
-            <div class="rating">1564</div>
-            <button class="start-btn" id="startButton">START</button>
-        </div>
+    <div id="startPage">
+        <div class="rating">1564</div>
+        <button class="start-btn">START</button>
+    </div>
 
-        <div id="puzzlePage" class="hidden">
-            <div class="timer">2:53</div>
-            <div id="board"></div>
-            <div class="button-container">
-                <button class="blunder-btn">Blunder</button>
-                <button class="good-btn">Good</button>
-            </div>
+    <div id="puzzlePage" class="hidden">
+        <div class="timer">2:53</div>
+        <div id="board"></div>
+        <div class="button-container">
+            <button class="blunder-btn">Blunder</button>
+            <button class="good-btn">Good</button>
         </div>
+    </div>
 
-        <div id="resultPage" class="hidden">
-            <div class="rating">1564</div>
-            <div class="result" id="resultText">Wrong!</div>
-            <div class="buttons">
-                <button class="analyze-btn">Analyze</button>
-                <button class="next-btn">Next</button>
-            </div>
+    <div id="resultPage" class="hidden">
+        <div class="rating">1564</div>
+        <div class="result" id="resultText">Wrong!</div>
+        <div class="buttons">
+            <button class="analyze-btn">Analyze</button>
+            <button class="next-btn">Next</button>
         </div>
     </div>
 
