@@ -7,18 +7,16 @@ const bot = new TelegramBot('7940253060:AAE6HFJGi0tbipn1nxsmnZ8lOk5ykTkK6PI', {p
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://viperxds.github.io'
+}));
 app.use(express.json());
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'chess_puzzles',
-    password: 'vladus2007',
-    port: 5432,
-    connectionTimeoutMillis: 5000,
-    idleTimeoutMillis: 30000,
-    max: 20
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 // Проверяем подключение при запуске
