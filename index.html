@@ -19,17 +19,19 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         }
 
-        #startPage {
+        .start-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
             max-width: 400px;
             padding: 20px;
-            text-align: center;
         }
 
         .rating {
             font-size: 48px;
             color: #4CAF50;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         .start-btn {
@@ -41,9 +43,7 @@
             font-size: 28px;
             color: black;
             cursor: pointer;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
+            transition: background-color 0.3s;
         }
 
         .start-btn:hover {
@@ -86,9 +86,9 @@
     </style>
 </head>
 <body>
-    <div id="startPage">
+    <div class="start-container">
         <div class="rating">1564</div>
-        <button class="start-btn">START</button>
+        <button class="start-btn" id="startButton">START</button>
     </div>
 
     <div id="puzzlePage" class="hidden">
@@ -113,6 +113,39 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация Telegram WebApp
+            const tg = window.Telegram?.WebApp;
+            if (tg) {
+                tg.ready();
+                tg.expand();
+            }
+
+            const startButton = document.getElementById('startButton');
+            
+            startButton.addEventListener('click', async () => {
+                try {
+                    console.log('Start button clicked');
+                    const username = tg?.initDataUnsafe?.user?.username || 'test_user';
+                    
+                    const response = await fetch(`http://localhost:10000/random-puzzle/${username}`);
+                    if (!response.ok) {
+                        throw new Error('Ошибка получения задачи');
+                    }
+                    
+                    const puzzle = await response.json();
+                    console.log('Получена задача:', puzzle);
+                    
+                    // Здесь код для перехода к задаче
+                    alert('Задача получена!');
+                    
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('Не удалось загрузить задачу');
+                }
+            });
+        });
+    </script>
 </body>
 </html> 
