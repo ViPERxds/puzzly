@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let startTime = null;
     let seconds = 180; // 3 минуты
 
-    const API_URL = 'http://localhost:3000/api';
+    const API_URL = 'https://your-service-name.onrender.com/api';
 
     // Функция для обновления отображения рейтинга
     async function updateRatingDisplay() {
