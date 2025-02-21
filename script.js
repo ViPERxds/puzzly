@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let startTime = null;
     let seconds = 180; // 3 минуты
 
-    const API_URL = 'https://your-service-name.onrender.com/api';
+
 
     // Функция для обновления отображения рейтинга
     async function updateRatingDisplay() {
@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentRating += 15;  // Увеличиваем рейтинг при правильном ответе
         } else {
             currentRating -= 10;  // Уменьшаем рейтинг при неправильном ответе
-        }
+        }    const API_URL = 'https://chess-puzzles-backend.onrender.com/api';
         
         // Обновляем отображение рейтинга на всех страницах
         document.querySelectorAll('.rating, .result-rating').forEach(el => {
