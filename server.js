@@ -3,7 +3,8 @@ const cors = require('cors');
 const { Pool } = require('pg');
 const path = require('path');
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot('7940253060:AAE6HFJGi0tbipn1nxsmnZ8lOk5ykTkK6PI', {polling: true});
+
+const bot = new TelegramBot(process.env.BOT_TOKEN, {polling: true});
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Изменяем подключение к базе данных
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -23,10 +25,10 @@ const pool = new Pool({
 pool.connect((err, client, release) => {
     if (err) {
         console.error('Ошибка подключения к базе данных:', err);
-        process.exit(1);
+    } else {
+        console.log('Успешное подключение к базе данных');
+        release();
     }
-    console.log('Успешное подключение к базе данных');
-    release();
 });
 
 // Добавляем обработчик ошибок для пула
@@ -94,13 +96,10 @@ app.post('/api/record-solution', async (req, res) => {
     }
 });
 
-// Запуск сервера
-const PORT = process.env.PORT || 3000;
+// Меняем порт на тот, который предоставляет Render
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
-}).on('error', (err) => {
-    console.error('Ошибка запуска сервера:', err);
-    process.exit(1);
 });
 
 // Добавляем обработку завершения процесса
